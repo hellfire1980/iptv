@@ -10,4 +10,6 @@ git clone https://github.com/hellfire1980/iptv.git
 cd iptv
 
 MYSQL_ROOT_PASSWORD='password' docker-compose up -d
+
+chmod -R 777 html
 ```
