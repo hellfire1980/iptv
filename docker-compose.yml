@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  openlitespeed:
+    image: 'hellfire1980/openlitespeed'
+    container_name: openlitespeed
+    restart: always
+    ports:
+        - '80:80'
+        - '7080:7080'
+    volumes:
+        - ./html:/usr/local/lsws/Example/html
+
+  mysql:
+    image: 'mariadb'
+    container_name: mariadb
+    restart: always
+    ports:
+        - '3306:3306'
+    volumes:
+        - ./db-data:/var/lib/mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin'
+    container_name: phpmyadmin
+    restart: always
+    ports:
+       - '8082:80'
+    links:
+        - mysql:mysql
+    environment:
+        MYSQL_USERNAME: root
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        PMA_HOST: mysql
